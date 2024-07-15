@@ -1,8 +1,17 @@
-# React + Vite
+## Pages For Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **Home Page**
 
-Currently, two official plugins are available:
+-   **Description**: Shows all the tasks available.
+-   **Functionality :** 
+    - ` Go to details of One task.`
+    - ` Create new Task.`
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **Task Page**
+
+-   **Description**: Shows details of a certain task.
+-   **Functionality :** 
+    - ` Delete the current task.`
+    - ` Update the current task.`
+
