@@ -20,5 +20,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.task_view),
+    path('', views.HomeTodoView),
+    path('<int:id>', views.EachTodoView),
 ]

@@ -2,16 +2,16 @@
 
 ### **Home Page**
 
--   **Description**: Shows all the tasks available.
--   **Functionality :** 
-    - ` Go to details of One task.`
-    - ` Create new Task.`
+-   **Description**: Shows all the todos available.
+-   **Functionality :**
+    -   ` Go to details of One todo.`
+    -   ` Create new Todo.`
+
 ---
 
-### **Task Page**
+### **Todo Page**
 
--   **Description**: Shows details of a certain task.
--   **Functionality :** 
-    - ` Delete the current task.`
-    - ` Update the current task.`
-
+-   **Description**: Shows details of a certain todo.
+-   **Functionality :**
+    -   ` Delete the current todo.`
+    -   ` Update the current todo.`

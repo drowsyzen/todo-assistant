@@ -1,5 +1,33 @@
+from rest_framework.response import Response
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from django.shortcuts import render
 
+from .services import todo_service
+
 # Create your views here.
-def task_view(request):
-    pass
+
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+@api_view(['GET', 'POST'])
+def HomeTodoView(request):
+    if request.method == 'GET':
+        out_data,message = todo_service.GetAllTodo()
+        return Response({"data":out_data,"message":message},status=210)
+    elif request.method == 'POST':
+        data = request.data
+        out_data,message = todo_service.CreateNewTodo(data)
+        return Response({"message":"Success"},status=210)
+        
+
+@csrf_exempt
+@permission_classes([IsAuthenticated])
+@api_view(['GET', 'PUT', 'DELETE'])
+def EachTodoView(request,id):
+    if request.method == 'GET':
+        return Response({"message":"Success"},status=210)
+    elif request.method == 'PUT':
+        return Response({"message":"Success"},status=210)
+    elif request.method == 'DELETE':
+        return Response({"message":"Success"},status=210)

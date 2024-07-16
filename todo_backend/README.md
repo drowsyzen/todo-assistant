@@ -1,16 +1,16 @@
 ## APIs for Backend
 
-### **Create Task**
+### **Create Todo**
 
--   **Endpoint**: `POST /api/tasks`
--   **Description**: Adds a new task to the to-do list.
+-   **Endpoint**: `POST /api/todos`
+-   **Description**: Adds a new todo to the to-do list.
 
 **Request Body**:
 
 ```json
 {
-    "title": "Task Title",
-    "description": "Task Description"
+    "title": "Todo Title",
+    "description": "Todo Description"
 }
 ```
 
@@ -19,8 +19,8 @@
 ```json
 {
     "id": 1,
-    "title": "Task Title",
-    "description": "Task Description",
+    "title": "Todo Title",
+    "description": "Todo Description",
     "completed": false,
     "created_at": "2024-07-15T12:34:56.789Z"
 }
@@ -28,10 +28,10 @@
 
 ---
 
-### **Read Tasks**
+### **Read Todos**
 
--   **Endpoint**: `GET /api/tasks`
--   **Description**: Retrieves the list of all tasks.
+-   **Endpoint**: `GET /api/todos`
+-   **Description**: Retrieves the list of all todos.
 
 **Response**:
 
@@ -39,8 +39,8 @@
 [
   {
     "id": 1,
-    "title": "Task Title",
-    "description": "Task Description",
+    "title": "Todo Title",
+    "description": "Todo Description",
     "completed": false,
     "created_at": "2024-07-15T12:34:56.789Z"
   },
@@ -50,18 +50,18 @@
 
 ---
 
-### **Read Task by ID**
+### **Read Todo by ID**
 
--   **Endpoint**: `GET /api/tasks/{id}`
--   **Description**: Retrieves a specific task by its ID.
+-   **Endpoint**: `GET /api/todos/{id}`
+-   **Description**: Retrieves a specific todo by its ID.
 
 **Response**:
 
 ```json
 {
     "id": 1,
-    "title": "Task Title",
-    "description": "Task Description",
+    "title": "Todo Title",
+    "description": "Todo Description",
     "completed": false,
     "created_at": "2024-07-15T12:34:56.789Z"
 }
@@ -69,17 +69,17 @@
 
 ---
 
-### **Update Task**
+### **Update Todo**
 
--   **Endpoint**: `PUT /api/tasks/{id}`
--   **Description**: Updates the details of a specific task.
+-   **Endpoint**: `PUT /api/todos/{id}`
+-   **Description**: Updates the details of a specific todo.
 
 **Request Body**:
 
 ```json
 {
-    "title": "Updated Task Title",
-    "description": "Updated Task Description",
+    "title": "Updated Todo Title",
+    "description": "Updated Todo Description",
     "completed": true
 }
 ```
@@ -89,8 +89,8 @@
 ```json
 {
     "id": 1,
-    "title": "Updated Task Title",
-    "description": "Updated Task Description",
+    "title": "Updated Todo Title",
+    "description": "Updated Todo Description",
     "completed": true,
     "created_at": "2024-07-15T12:34:56.789Z"
 }
@@ -98,15 +98,15 @@
 
 ---
 
-### **Delete Task**
+### **Delete Todo**
 
--   **Endpoint**: `DELETE /api/tasks/{id}`
--   **Description**: Deletes a specific task by its ID.
+-   **Endpoint**: `DELETE /api/todos/{id}`
+-   **Description**: Deletes a specific todo by its ID.
 
 **Response**:
 
 ```json
 {
-    "message": "Task deleted successfully"
+    "message": "Todo deleted successfully"
 }
 ```
