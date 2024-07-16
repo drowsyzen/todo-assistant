@@ -18,7 +18,7 @@ def HomeTodoView(request):
     elif request.method == 'POST':
         data = request.data
         out_data,message = todo_service.CreateNewTodo(data)
-        return Response({"message":"Success"},status=210)
+        return Response({"data":out_data,"message":message},status=210)
         
 
 @csrf_exempt
@@ -26,8 +26,12 @@ def HomeTodoView(request):
 @api_view(['GET', 'PUT', 'DELETE'])
 def EachTodoView(request,id):
     if request.method == 'GET':
-        return Response({"message":"Success"},status=210)
+        out_data,message = todo_service.getTodo(id)
+        return Response({"data":out_data,"message":message},status=210)
     elif request.method == 'PUT':
-        return Response({"message":"Success"},status=210)
+        data = request.data
+        out_data,message = todo_service.updateTodo(id)
+        return Response({"data":out_data,"message":message},status=210)
     elif request.method == 'DELETE':
-        return Response({"message":"Success"},status=210)
+        out_data,message = todo_service.deleteTodo(id)
+        return Response({"data":out_data,"message":message},status=210)

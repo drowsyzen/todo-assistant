@@ -30,9 +30,30 @@ class TodoService:
 
     def updateTodo(self,id,data):
         try:
-            TodoModel
+            upd_obj = TodoModel.objects.filter(id = id).first()
+            upd_srl_obj = TodoSerializer(instance=upd_obj,data=data,partial=True)
+            if upd_srl_obj.is_valid():
+                uptd_obj = upd_srl_obj.save()
+                return uptd_obj, "Todo Created Successfully."
+            else:
+                return {"error":upd_srl_obj.errors}, "Error while creating Todo."
         except Exception as ex:
             return {ex_dtl:ex},"Some Error "        
+
+    def getTodo(self,id):
+        try:
+            todo_obj = TodoModel.objects.filter(id = id).first()
+            return TodoSerializer(todo_obj,many=false).data, f"Fetched To-Do details for {id}."
+        except Exception as ex:
+            return {ex_dtl:ex},"Some Error "
+
+    def deleteTodo(self,id):
+        try:
+            todo_obj = TodoModel.objects.filter(id = id).first()
+            todo_obj.delete()
+            return "", f"Deleted To-Do with {id}."
+        except Exception as ex:
+            return {ex_dtl:ex},"Some Error "
 
 
 todo_service = TodoService()
