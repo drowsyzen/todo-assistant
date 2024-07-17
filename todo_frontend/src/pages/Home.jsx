@@ -14,6 +14,21 @@ export default function TableOne() {
         });
     }, []);
 
+    const closePopup = () => {
+        setOpen("");
+    };
+
+    const deleteTodo = (e) => {
+        console.log("in delete todo");
+        if (window.confirm("Press a button!")) {
+            axios
+                .delete(`http://localhost:8000/api/todos/${e.target.value}`)
+                .then((response) => {
+                    console.log(response.data.data);
+                });
+        }
+    };
+
     const [open, setOpen] = useState("");
 
     return (
@@ -40,6 +55,7 @@ export default function TableOne() {
                             formHeading={
                                 open === "add" ? undefined : "Edit To Do"
                             }
+                            onClose={closePopup}
                         />
                     </Popup>
                 </div>
@@ -112,15 +128,13 @@ export default function TableOne() {
                                                     >
                                                         Edit
                                                     </button>
-
-                                                    {/* <Popup
-                                                        open={open === "edit"}
+                                                    <button
+                                                        className="mx-2 bg-red-400 hover:bg-red-300 text-white hover:text-teal-800 font-bold py-2 px-4 rounded-lg shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1"
+                                                        onClick={deleteTodo}
+                                                        value={todo.id}
                                                     >
-                                                        <ToDoForm
-                                                            formHeading="Edit To Do"
-                                                            formTitle={todo.id}
-                                                        />
-                                                    </Popup> */}
+                                                        Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}

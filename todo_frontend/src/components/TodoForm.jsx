@@ -6,6 +6,7 @@ const ToDoForm = ({
     formDescription = "",
     completeFlag = false,
     formHeading = "Add New To-Do",
+    onClose = () => {},
 }) => {
     const [title, setTitle] = useState(formTitle);
     const [description, setDescription] = useState(formDescription);
@@ -38,6 +39,7 @@ const ToDoForm = ({
         setTitle("");
         setDescription("");
         setIsComplete(false);
+        // handleSave();
     };
 
     return (
@@ -102,10 +104,18 @@ const ToDoForm = ({
                 </div>
 
                 <button
-                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-900 focus:outline-none focus:shadow-outline"
                     onClick={handleSave}
                 >
                     Save
+                </button>
+                <button
+                    id="closebtn"
+                    className="mt-3 w-full bg-transparent hover:bg-red-500 flex-auto text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+                    type="button"
+                    onClick={onClose}
+                >
+                    close
                 </button>
             </div>
         </div>
