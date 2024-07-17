@@ -12,7 +12,7 @@ class TodoService:
             all_todo_objs = TodoModel.objects.all()
             if all_todo_objs:
                 todo_srl_obj = TodoSerializer(all_todo_objs,many=True)
-                return todo_srl_obj,"Todos Fetched Successfully."
+                return todo_srl_obj.data,"Todos Fetched Successfully."
             return {},"No ToDo Found."
         except Exception as ex:
             return {ex_dtl:ex},"Some Error "        
@@ -21,8 +21,8 @@ class TodoService:
         try:
             new_srl_obj = TodoSerializer(data=data)
             if new_srl_obj.is_valid():
-                new_todo_obj = new_srl_obj.save()
-                return new_todo_obj, "Todo Created Successfully."
+                new_srl_obj.save()
+                return new_srl_obj.data, "Todo Created Successfully."
             else:
                 return {"error":new_srl_obj.errors}, "Error while creating Todo."
         except Exception as ex:
@@ -33,8 +33,8 @@ class TodoService:
             upd_obj = TodoModel.objects.filter(id = id).first()
             upd_srl_obj = TodoSerializer(instance=upd_obj,data=data,partial=True)
             if upd_srl_obj.is_valid():
-                uptd_obj = upd_srl_obj.save()
-                return uptd_obj, "Todo Created Successfully."
+                upd_srl_obj.save()
+                return upd_srl_obj.data, "Todo Created Successfully."
             else:
                 return {"error":upd_srl_obj.errors}, "Error while creating Todo."
         except Exception as ex:

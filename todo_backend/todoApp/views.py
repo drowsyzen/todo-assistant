@@ -13,11 +13,11 @@ from .services import todo_service
 @api_view(['GET', 'POST'])
 def HomeTodoView(request):
     if request.method == 'GET':
-        out_data,message = todo_service.GetAllTodo()
+        out_data,message = todo_service.getAllTodo()
         return Response({"data":out_data,"message":message},status=210)
     elif request.method == 'POST':
         data = request.data
-        out_data,message = todo_service.CreateNewTodo(data)
+        out_data,message = todo_service.createNewTodo(data)
         return Response({"data":out_data,"message":message},status=210)
         
 
