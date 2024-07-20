@@ -23,14 +23,14 @@ def HomeTodoView(request):
 
 @csrf_exempt
 @permission_classes([IsAuthenticated])
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'POST', 'DELETE'])
 def EachTodoView(request,id):
     if request.method == 'GET':
         out_data,message = todo_service.getTodo(id)
         return Response({"data":out_data,"message":message},status=210)
-    elif request.method == 'PUT':
+    elif request.method == 'POST':
         data = request.data
-        out_data,message = todo_service.updateTodo(id)
+        out_data,message = todo_service.updateTodo(id,data)
         return Response({"data":out_data,"message":message},status=210)
     elif request.method == 'DELETE':
         out_data,message = todo_service.deleteTodo(id)

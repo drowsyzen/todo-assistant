@@ -7,29 +7,34 @@ import ToDoForm from "../components/TodoForm";
 export default function TableOne() {
     const [todos, setTodos] = useState([]);
 
-    useEffect(() => {
+    const getTodos = () => {
         axios.get("http://localhost:8000/api/todos/").then((response) => {
             console.log(response.data.data);
             setTodos(response.data.data);
         });
-    }, []);
+    };
+    const [page, setPage] = useState("Home");
+    const [selectedTodo, setSelectedTodo] = useState({});
+
+    useEffect(() => {
+        getTodos();
+    }, [page == "Home"]);
 
     const closePopup = () => {
-        setOpen("");
+        setPage("Home");
     };
 
     const deleteTodo = (e) => {
         console.log("in delete todo");
-        if (window.confirm("Press a button!")) {
+        if (window.confirm("are you sure you want to delete!")) {
             axios
                 .delete(`http://localhost:8000/api/todos/${e.target.value}`)
                 .then((response) => {
-                    console.log(response.data.data);
+                    console.log(response.data);
                 });
         }
+        setPage("Home");
     };
-
-    const [open, setOpen] = useState("");
 
     return (
         <>
@@ -46,15 +51,30 @@ export default function TableOne() {
                         type="button"
                         className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                         // onClick={(e) => addTodo(e)}
-                        onClick={() => setOpen("add")}
+                        onClick={() => setPage("add")}
                     >
                         Add new Todo
                     </button>
-                    <Popup open={open != ""}>
+                    <Popup open={page == "add" || page == "edit"}>
                         <ToDoForm
                             formHeading={
-                                open === "add" ? undefined : "Edit To Do"
+                                page === "add" ? undefined : "Edit To Do"
                             }
+                            formTitle={
+                                page === "add" ? undefined : selectedTodo.title
+                            }
+                            formDescription={
+                                page === "add"
+                                    ? undefined
+                                    : selectedTodo.description
+                            }
+                            completeFlag={
+                                page === "add"
+                                    ? undefined
+                                    : selectedTodo.completeFlag
+                            }
+                            page={page}
+                            id={selectedTodo.id}
                             onClose={closePopup}
                         />
                     </Popup>
@@ -122,7 +142,14 @@ export default function TableOne() {
                                                     <button
                                                         className="bg-gray-400 hover:bg-gray-300 text-white hover:text-teal-800 font-bold py-2 px-4 rounded-lg shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1"
                                                         onClick={() =>
-                                                            setOpen("edit") &
+                                                            setPage("edit") &
+                                                            setSelectedTodo(
+                                                                todos.find(
+                                                                    (intodo) =>
+                                                                        intodo.id ===
+                                                                        todo.id
+                                                                )
+                                                            ) &
                                                             console.log(todo.id)
                                                         }
                                                     >

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const ToDoForm = ({
@@ -7,23 +7,31 @@ const ToDoForm = ({
     completeFlag = false,
     formHeading = "Add New To-Do",
     onClose = () => {},
+    page = "",
+    id = undefined
 }) => {
     const [title, setTitle] = useState(formTitle);
     const [description, setDescription] = useState(formDescription);
     const [isComplete, setIsComplete] = useState(completeFlag);
 
     const toggleComplete = () => {
+        // toggle complete button here
         setIsComplete(!isComplete);
     };
 
-    const handleSave = () => {
+    const handleSave = (page) => {
         // Handle the save logic here
         axios
-            .post("http://localhost:8000/api/todos/", {
-                title: title,
-                description: description,
-                completed: isComplete,
-            })
+            .post(
+                page === ""
+                    ? "http://localhost:8000/api/todos/"
+                    : `http://localhost:8000/api/todos/${id}`,
+                {
+                    title: title,
+                    description: description,
+                    completed: isComplete,
+                }
+            )
             .then((response) => {
                 console.log(response.data);
             })
@@ -35,12 +43,23 @@ const ToDoForm = ({
             description,
             isComplete,
         });
-        // Reset the form fields
-        setTitle("");
-        setDescription("");
-        setIsComplete(false);
-        // handleSave();
+        onClose();
     };
+    useEffect(() => {
+        const handleEscKeyPress = (event) => {
+            if (event.key === "Escape") {
+                console.log("Escape key pressed");
+                onClose();
+            }
+        };
+
+        window.addEventListener("keydown", handleEscKeyPress);
+
+        // Cleanup the event listener on component unmount
+        return () => {
+            window.removeEventListener("keydown", handleEscKeyPress);
+        };
+    }, []);
 
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center p-5">
